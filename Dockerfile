@@ -1,11 +1,13 @@
-FROM ollama/ollama:latest
+FROM ollama/ollama
 
-ENV OLLAMA_HOST=0.0.0.0
-ENV OLLAMA_PORT=11434
+ENV OLLAMA_HOST=0.0.0.0:7860
 
-ENV OLLAMA_NUM_PARALLEL=1
-ENV OLLAMA_MAX_LOADED_MODELS=1
 
-EXPOSE 11434
+RUN echo '#!/bin/bash' > /start.sh && \
+    echo 'ollama serve &' >> /start.sh && \
+    echo 'sleep 5' >> /start.sh && \
+    echo 'ollama pull qwen2.5:0.5b' >> /start.sh && \
+    echo 'wait' >> /start.sh && \
+    chmod +x /start.sh
 
-CMD ["ollama", "serve"]
+CMD ["/start.sh"]
