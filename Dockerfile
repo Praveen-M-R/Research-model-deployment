@@ -1,0 +1,13 @@
+FROM ollama/ollama:latest
+
+ENV OLLAMA_HOST=0.0.0.0
+ENV OLLAMA_PORT=11434
+
+ENV OLLAMA_NUM_PARALLEL=1
+ENV OLLAMA_MAX_LOADED_MODELS=1
+
+EXPOSE 11434
+
+RUN ollama pull qwen3:0.6b
+
+CMD ["ollama", "serve"]
