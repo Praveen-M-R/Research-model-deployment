@@ -8,6 +8,7 @@ ENV OLLAMA_MAX_LOADED_MODELS=1
 
 EXPOSE 11434
 
-RUN ollama pull qwen3:0.6b
-
-CMD ["ollama", "serve"]
+CMD ollama serve & \
+    sleep 5 && \
+    ollama pull qwen3:0.6b && \
+    wait
